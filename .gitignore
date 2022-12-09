@@ -1,0 +1,8 @@
+# SPDX-FileCopyrightText: 2022 Carnegie Mellon University
+# SPDX-License-Identifier: 0BSD
+
+/dist/
+/src/wireguard4netns/wireguard-go
+__pycache__/
+*~
+*.swp

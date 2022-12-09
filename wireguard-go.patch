@@ -1,0 +1,39 @@
+# SPDX-FileCopyrightText: 2022 Carnegie Mellon University
+# SPDX-License-Identifier: MIT
+diff --git a/tun/tun_linux.go b/tun/tun_linux.go
+index f02394d..2194c70 100644
+--- a/tun/tun_linux.go
++++ b/tun/tun_linux.go
+@@ -213,13 +213,19 @@ func getIFIndex(name string) (int32, error) {
+ 	)
+
+ 	if errno != 0 {
+-		return 0, errno
++                // we won't find the interface when it is in a different netns
++		return -1, nil
+ 	}
+
+ 	return *(*int32)(unsafe.Pointer(&ifr[unix.IFNAMSIZ])), nil
+ }
+
+ func (tun *NativeTun) setMTU(n int) error {
++        if tun.index == -1 {
++            // can't set interface MTU when it is in another netns
++            return nil
++        }
++
+ 	name, err := tun.Name()
+ 	if err != nil {
+ 		return err
+@@ -256,6 +262,11 @@ func (tun *NativeTun) setMTU(n int) error {
+ }
+
+ func (tun *NativeTun) MTU() (int, error) {
++        if tun.index == -1 {
++            // can't get interface MTU when it is in another netns
++            return 1420, nil
++        }
++
+ 	name, err := tun.Name()
+ 	if err != nil {
+ 		return 0, err
