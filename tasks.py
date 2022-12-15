@@ -122,15 +122,9 @@ def build_wheels(c):
 
 @task
 def tag(c):
-    """Apply tag for current release and bump to dev release"""
+    """Apply tag for current release"""
     release = get_current_version(c)
     c.run(f"git tag -m v{release} v{release}")
-
-    # bump version to new development tag
-    new_version = f"{release}.post.dev0"
-    c.run(f"poetry run tbump --non-interactive --only-patch {new_version}")
-    c.run("git add --update")
-    c.run(f'git commit --no-verify --message "Bumping to {new_version}"')
 
 
 @task(bump_version, build_sdist, build_wheels, tag)
@@ -138,6 +132,12 @@ def publish(c, part="patch"):
     """Bump application version, build, tag and publish"""
     # publish to pypi
     c.run("poetry publish")
+
+    # bump version to new development tag
+    new_version = get_current_version(c) + ".post.dev0"
+    c.run(f"poetry run tbump --non-interactive --only-patch {new_version}")
+    c.run("git add --update")
+    c.run(f'git commit --no-verify --message "Bumping to {new_version}"')
 
     # update source and tags in github
     c.run("git push")

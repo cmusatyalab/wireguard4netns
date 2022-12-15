@@ -11,7 +11,7 @@ authors = [
 ]
 license = "MIT"
 readme = "README.md"
-#repository = "https://github.com/cmusatyalab/wireguard4netns"
+repository = "https://github.com/cmusatyalab/wireguard4netns"
 classifiers = [
     "Development Status :: 4 - Beta",
     "Environment :: Console",
