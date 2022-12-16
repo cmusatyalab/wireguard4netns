@@ -129,7 +129,7 @@ def tag(c):
 
 @task(bump_version, build_sdist, build_wheels, tag)
 def publish(c, part="patch"):
-    """Bump application version, build, tag and publish"""
+    """publish and bump to development version"""
     # publish to pypi
     c.run("poetry publish")
 
