@@ -122,7 +122,7 @@ testing = ["covdefaults (>=2.2.2)", "coverage (>=6.5)", "pytest (>=7.2)", "pytes
 
 [[package]]
 name = "identify"
-version = "2.5.9"
+version = "2.5.10"
 description = "File identification library for Python"
 category = "dev"
 optional = false
@@ -467,7 +467,7 @@ python-versions = "*"
 
 [[package]]
 name = "wireguard-tools"
-version = "0.1.1"
+version = "0.2.0"
 description = "Pure python reimplementation of wireguard-tools"
 category = "main"
 optional = false
@@ -492,7 +492,7 @@ testing = ["flake8 (<5)", "func-timeout", "jaraco.functools", "jaraco.itertools"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7"
-content-hash = "06b4743b8671af46e6c5791229dc052c0a590e5211f562fc8633223c35a08371"
+content-hash = "3a15edabe79645b7404c7178ee56ce5199c52b9f0d212ecc7f4ecfdcc0f6916f"
 
 [metadata.files]
 atomicwrites = [
@@ -548,8 +548,8 @@ filelock = [
     {file = "filelock-3.8.2.tar.gz", hash = "sha256:7565f628ea56bfcd8e54e42bdc55da899c85c1abfe1b5bcfd147e9188cebb3b2"},
 ]
 identify = [
-    {file = "identify-2.5.9-py2.py3-none-any.whl", hash = "sha256:a390fb696e164dbddb047a0db26e57972ae52fbd037ae68797e5ae2f4492485d"},
-    {file = "identify-2.5.9.tar.gz", hash = "sha256:906036344ca769539610436e40a684e170c3648b552194980bb7b617a8daeb9f"},
+    {file = "identify-2.5.10-py2.py3-none-any.whl", hash = "sha256:fb7c2feaeca6976a3ffa31ec3236a6911fbc51aec9acc111de2aed99f244ade2"},
+    {file = "identify-2.5.10.tar.gz", hash = "sha256:dce9e31fee7dbc45fea36a9e855c316b8fbf807e65a862f160840bb5a2bf5dfd"},
 ]
 importlib-metadata = [
     {file = "importlib_metadata-5.1.0-py3-none-any.whl", hash = "sha256:d84d17e21670ec07990e1044a99efe8d615d860fd176fc29ef5c306068fda313"},
@@ -756,8 +756,8 @@ win-inet-pton = [
     {file = "win_inet_pton-1.1.0.tar.gz", hash = "sha256:dd03d942c0d3e2b1cf8bab511844546dfa5f74cb61b241699fa379ad707dea4f"},
 ]
 wireguard-tools = [
-    {file = "wireguard_tools-0.1.1-py3-none-any.whl", hash = "sha256:73f152b58e4d7d06345a64272fad703e3fe12e44d725150c4dc686b506457ca2"},
-    {file = "wireguard_tools-0.1.1.tar.gz", hash = "sha256:a4f28d5d748cda14aa28dc6c7870bf0a26b6c6c8579a6429210ac2645c5851de"},
+    {file = "wireguard_tools-0.2.0-py3-none-any.whl", hash = "sha256:3c706e83a350573536eee70b21257193a50cf9afae79bc9d4bcace0a7bdf5548"},
+    {file = "wireguard_tools-0.2.0.tar.gz", hash = "sha256:6d2bb7754c350528316ae1e658ba3968e23e39ef804ec61e1d4df9e554e8593c"},
 ]
 zipp = [
     {file = "zipp-3.11.0-py3-none-any.whl", hash = "sha256:83a28fcb75844b5c0cdaf5aa4003c2d728c77e05f5aeabe8e95e56727005fbaa"},

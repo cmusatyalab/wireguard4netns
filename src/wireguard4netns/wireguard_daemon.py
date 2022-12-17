@@ -17,7 +17,7 @@ from typing import Iterator
 
 import importlib_resources
 from wireguard_tools import WireguardConfig
-from wireguard_tools.wireguard_device import WireguardUAPIDevice
+from wireguard_tools.wireguard_uapi import WireguardUAPIDevice
 
 from .tundev import create_tun_in_netns
 
