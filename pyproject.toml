@@ -3,7 +3,7 @@
 
 [tool.poetry]
 name = "wireguard4netns"
-version = "0.1.1"
+version = "0.1.1.post.dev0"
 description = "WireGuard VPN networking for unprivileged network namespaces"
 authors = [
     "Carnegie Mellon University <satya+group@cs.cmu.edu>",
