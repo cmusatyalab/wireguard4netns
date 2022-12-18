@@ -9,6 +9,7 @@
 import os
 import shutil
 import subprocess
+import sys
 import tarfile
 import urllib.request
 from pathlib import Path
@@ -75,6 +76,71 @@ def build(*_setup_kwargs):
             env=env,
             check=True,
         )
+
+
+def check_submodule():
+    # make sure wireguard-go submodule is initialized
+    sys.exit(0 if Path("wireguard-go", "LICENSE").exists() else 1)
+
+
+def clean_dist():
+    """clean up leftover files from old builds"""
+    dist = Path("dist")
+
+    for sdist in dist.glob("*.tar.gz"):
+        sdist.unlink()
+
+    for wheel in dist.glob("*.whl"):
+        wheel.unlink()
+
+
+SCRIPT = """\
+cd /tmp
+curl {golang} --silent --location | tar -xz
+export PATH="/tmp/go/bin:$PATH" HOME=/tmp
+for py in {pythons}; do
+    "/opt/python/$py/bin/pip" wheel --no-deps --wheel-dir /tmp /dist/*.tar.gz
+done
+ls *.whl | xargs -n1 --verbose auditwheel repair --wheel-dir /dist
+ls -al /dist
+"""
+
+
+def wheels():
+    """Build wheels from the pypa/manylinux2014_x86_64 Docker container
+
+    Based on how setuptools-golang builds, but using a newer manylinux
+    container and hardcoded golang/python versions.
+    """
+    golang = GOLANG.format(GOLANG_VERSION)
+    pythons = [
+        "cp37-cp37m",
+        "cp38-cp38",
+        "cp39-cp39",
+        "cp310-cp310",
+        "cp311-cp311",
+    ]
+
+    dist = Path("dist")
+
+    subprocess.run(
+        [
+            "docker",
+            "run",
+            "--rm",
+            "--volume",
+            f"{dist.resolve()}:/dist:rw",
+            "--user",
+            f"{os.getuid()}:{os.getgid()}",
+            "quay.io/pypa/manylinux2014_x86_64:latest",
+            "bash",
+            "-o",
+            "pipefail",
+            "-euxc",
+            SCRIPT.format(golang=golang, pythons=" ".join(pythons)),
+        ],
+        check=True,
+    )
 
 
 if __name__ == "__main__":

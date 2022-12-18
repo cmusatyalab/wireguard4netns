@@ -19,7 +19,6 @@ classifiers = [
 ]
 packages = [
     {include = "wireguard4netns", from = "src"},
-    {include = "tests", format = "sdist"},
 ]
 include = [
     {path = "src/wireguard4netns/wireguard-go", format = "wheel"},
@@ -28,6 +27,7 @@ include = [
     {path = "wireguard-go", format = "sdist"},
     {path = "wireguard-go.patch", format = "sdist"},
     {path = "tasks.py", format = "sdist"},
+    {path = "tests", format = "sdist"},
 ]
 exclude = [
     "wireguard-go/.git",
@@ -46,7 +46,7 @@ wireguard-tools = "^0.2.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^22.10.0"
-invoke = "^1.7.3"
+poethepoet = "^0.16.5"
 pre-commit = "^2.16.0"
 tbump = "^6.9.0"
 
@@ -91,6 +91,9 @@ files = ["src", "tests"]
 # pytest decorators are not typed
 module = "tests.*"
 disallow_untyped_decorators = false
+
+[tool.poe]
+include = "tasks.toml"
 
 [build-system]
 requires = ["poetry-core"]

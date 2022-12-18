@@ -30,13 +30,13 @@ search = 'version = "{current_version}"'
 src = "src/wireguard4netns/__init__.py"
 search = '__version__ = "{current_version}"'
 
-# [[before_commit]]
-# name = "run unit tests"
-# cmd = "poetry run pytest"
+[[before_commit]]
+name = "run pre-commit checks and unit test"
+cmd = "poetry run poe check"
 
 [[before_commit]]
-name = "run pre-commit checks"
-cmd = "poetry run pre-commit run -a"
+name = "build sdist and wheels"
+cmd = "poetry run poe build"
 
 #  [[after_push]]
 #  name = "publish"
