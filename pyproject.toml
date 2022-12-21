@@ -38,7 +38,7 @@ wireguard4netns = "wireguard4netns.cli:main"
 
 [tool.poetry.dependencies]
 python = "^3.7"
-attrs = "^22.1.0"
+attrs = ">=22.1.0"
 importlib-resources = "^5.0"
 pyroute2 = "^0.7.3"
 typing-extensions = {version = "^4.4.0", python = "<3.8"}
