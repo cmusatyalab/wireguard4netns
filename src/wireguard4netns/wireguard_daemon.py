@@ -26,7 +26,6 @@ from .tundev import create_tun_in_netns
 def fork_wireguard_go(
     ns_pid: int, interface: str, tmpdir: Path
 ) -> Iterator[WireguardUAPIDevice]:
-
     # locate wireguard-go binary
     wireguard_go = importlib_resources.files("wireguard4netns").joinpath("wireguard-go")
 
