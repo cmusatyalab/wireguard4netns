@@ -18,8 +18,8 @@ a nearby Kubernetes cluster (`cloudlet`).  We leverage WireGuard tunnels
 between the two to avoid having to expose deployed services to the world, the
 frontend's network environment is as if it was part of the same deployment
 inside the same Kubernetes cluster and namespace as the backend.  This hides
-most unnecessary network details from the application's frontend and provides
-various other advantages such as privacy and network mobility.
+most of the unnecessary network details from the application's frontend and
+provides other advantages such as privacy and network mobility.
 
 The main disadvantage was that root privileges are needed to create, configure
 and attach the in-kernel WireGuard interface to a network namespace. This
@@ -46,25 +46,26 @@ This will download a copy of golang and build a custom `wireguard-go` binary
 which will be placed at `src/wireguard4netns/wireguard-go`. As long as that
 binary is present it will not try to rebuild the wireguard-go code again.
 
-We have to use a custom built version osf wireguard-go because starting it with
-an existing tunnel socket fd is really just an artifact of how it sets up the
-tuntap device and uapi socket in the foreground and then daemonizes itself,
-passing along the already open file descriptors. With our approach the tuntap
-device ends up in a different network namespace and wireguard-go is unable to
-query or set the MTU. The relevant changes to avoid failing on MTU operations
+We use a custom built version of wireguard-go because starting with an existing
+tunnel socket fd is really just an artifact of how the unmodified wireguard-go
+process sets up the tuntap device and uapi socket in the foreground and then
+daemonizes itself, passing along the already open file descriptors. With our
+approach the tuntap device ends up being created in a different network
+namespace and wireguard-go was unable to query or set the MTU. Our modification
+simply changes the code to not failing when MTU operations are not working and
 is in `wireguard-go.patch`.
 
 We also needed to make sure the UAPI socket is placed in a user-writable
 location instead of `/var/run/wireguard`, this `socketDirectory` path is
-modified through a custom linker flag that is set in `build.py` where we build
-the binary.
+customized through a custom linker flag that is set in `build.py` when we
+build the binary.
 
 
 ## Licenses
 
 wireguard4netns is MIT licensed
 
-    Copyright (c) 2022 Carnegie Mellon University
+    Copyright (c) 2022-2023 Carnegie Mellon University
     SPDX-License-Identifier: MIT
 
     Permission is hereby granted, free of charge, to any person obtaining a copy of
