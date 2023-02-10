@@ -1,7 +1,7 @@
 #
 # wireguard4netns
 #
-# Copyright (c) 2022 Carnegie Mellon University
+# Copyright (c) 2022-2023 Carnegie Mellon University
 # SPDX-License-Identifier: MIT
 #
 __version__ = "0.1.3.post.dev0"

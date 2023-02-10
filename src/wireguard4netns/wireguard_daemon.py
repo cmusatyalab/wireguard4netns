@@ -1,7 +1,7 @@
 #
 # wireguard4netns
 #
-# Copyright (c) 2022 Carnegie Mellon University
+# Copyright (c) 2022-2023 Carnegie Mellon University
 # SPDX-License-Identifier: MIT
 #
 """Fork wireguard-go process and configure the tunnel"""
