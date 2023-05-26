@@ -2,7 +2,7 @@
 #
 # wireguard4netns
 #
-# Copyright (c) 2022 Carnegie Mellon University
+# Copyright (c) 2022-2023 Carnegie Mellon University
 # SPDX-License-Identifier: MIT
 #
 
@@ -29,6 +29,7 @@ def build(*_setup_kwargs):
 
     go = shutil.which("go")
     patch = shutil.which("patch")
+    assert patch is not None, "Could not find the `patch` executable"
 
     # copy wireguard-go source into a temporary directory, patch and compile
     with TemporaryDirectory() as tmp:

@@ -31,9 +31,13 @@ userspace WireGuard implementation is started. All frontend traffic is then
 sent through the tunnel to a VPN endpoint on the nearby cloudlet which passes
 it along to the deployed namespace of the application's backend.
 
+
 ## Building from source
 
-Make sure you initialize and update the wireguard-go git-submodule.
+The only executable that is needed is `patch`. The build will try to download a
+copy of golang and use that to build a custom `wireguard-go` binary.
+
+Make sure you have an initialized and updated wireguard-go git-submodule.
 
 ```sh
     git clone ... wireguard4netns
@@ -42,23 +46,24 @@ Make sure you initialize and update the wireguard-go git-submodule.
     poetry build
 ```
 
-This will download a copy of golang and build a custom `wireguard-go` binary
-which will be placed at `src/wireguard4netns/wireguard-go`. As long as that
-binary is present it will not try to rebuild the wireguard-go code again.
+The `wireguard-go` binary is then placed at `src/wireguard4netns/wireguard-go`.
+As long as that binary is present in that location, the build will avoid
+rebuilding the wireguard-go code.
 
 We use a custom built version of wireguard-go because starting with an existing
 tunnel socket fd is really just an artifact of how the unmodified wireguard-go
 process sets up the tuntap device and uapi socket in the foreground and then
 daemonizes itself, passing along the already open file descriptors. With our
 approach the tuntap device ends up being created in a different network
-namespace and wireguard-go was unable to query or set the MTU. Our modification
-simply changes the code to not failing when MTU operations are not working and
-is in `wireguard-go.patch`.
+namespace and wireguard-go was unable to query or set the MTU.
+
+Our modifications simply change the code to not fail when MTU operations are
+not working and is in `wireguard-go.patch`.
 
 We also needed to make sure the UAPI socket is placed in a user-writable
-location instead of `/var/run/wireguard`, this `socketDirectory` path is
-customized through a custom linker flag that is set in `build.py` when we
-build the binary.
+location instead of `/var/run/wireguard`. This `socketDirectory` path is
+customized through a custom linker flag that we set in `build.py` at the time
+we build the binary.
 
 
 ## Licenses
