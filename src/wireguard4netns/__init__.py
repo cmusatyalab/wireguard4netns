@@ -4,7 +4,7 @@
 # Copyright (c) 2022-2023 Carnegie Mellon University
 # SPDX-License-Identifier: MIT
 #
-__version__ = "0.1.5.post.dev0"
+__version__ = "0.1.6"
 
 from .wireguard_daemon import create_wireguard_tunnel
 
